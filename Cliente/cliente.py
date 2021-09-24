@@ -1,5 +1,6 @@
 import zmq      # Provee la comunocación a través de sockets
 import sys
+import json
 
 SIZE = 1048576
 context = zmq.Context()
@@ -73,7 +74,16 @@ elif(op  == 'downloadlink'):
     s.recv_string()
     s.send_string(file)
     nombre = s.recv_string()
-    s.send_string('ok')
-    with open(nombre, 'wb') as f:
-        byte = s.recv_multipart()
-        f.write(byte[0])
+    op = 'download'
+    with open(nombre, 'ab') as f:
+        while True:
+            s.send_string(op)
+            s.recv_string()
+            s.send_string(user)
+            s.recv_string()
+            s.send_string(nombre)
+            byte = s.recv_multipart()
+            if len(byte[0]) == 0:
+                break
+            f.write(byte[0])
+

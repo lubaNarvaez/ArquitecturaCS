@@ -2,6 +2,7 @@ from types import SimpleNamespace
 import zmq
 import os
 import hashlib
+import json
 
 # BUF_SIZE is totally arbitrary, change for your app!
 BUF_SIZE = 65536  # lets read stuff in 64kb chunks!
@@ -72,10 +73,8 @@ while True:
                     md5.update(data)
             if link == md5.hexdigest():
                 s.send_string(arc)
-                s.recv_string()
-                with open(arc, 'rb') as f:
-                    byte = f.read()
-                    s.send_multipart([byte])
+                break
+                
                 
     
     
