@@ -7,14 +7,14 @@ listaDec = []
 
 listaSHA = []
 
-rangos = {
-}
+rangos = {}
 
-for item in range(500):
+for item in range(5):
     cadena = uuid.uuid4()
     item = hashlib.new("sha1", cadena.bytes)
     num = int(item.hexdigest(), 16)
     listaDec.append(num)
+
 
 
 listaDec.sort()
@@ -22,13 +22,13 @@ listaDec.sort()
 for item in listaDec:
     rangos[item] = []
 
-""" for file in range(2000):
+"""for file in range(5):
     namefile = 'archivo-{}.txt'.format(file)
     with open(namefile, 'wb') as fout:
-        fout.write(os.urandom(1024)) """
+        fout.write(os.urandom(1024))"""
 
 
-for file in range(2000):
+for file in range(5):
     namefile = 'archivo-{}.txt'.format(file)
     with open(namefile, 'rb') as f: 
         listaSHA.append(hashlib.sha1(f.read()).hexdigest())
